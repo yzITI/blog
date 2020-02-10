@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="310" height="110" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+<mask id="I1">
+  <rect x="10" y="10" width="90" height="90" fill="white"/>
+  <rect x="50" y="20" width="10" height="70" fill="black"/>
+</mask>
+<mask id="T">
+  <rect x="110" y="10" width="90" height="90" fill="white"/>
+  <rect x="150" y="20" width="10" height="70" fill="black"/>
+  <rect x="120" y="20" width="70" height="10" fill="black"/>
+</mask>
+<mask id="I2">
+  <rect x="210" y="10" width="90" height="90" fill="white"/>
+  <rect x="250" y="20" width="10" height="70" fill="black"/>
+</mask>
+
+<g fill="black">
+<rect x="10" y="10" width="90" height="90" mask="url(#I1)"/>
+<rect x="110" y="10" width="90" height="90" mask="url(#T)"/>
+<rect x="210" y="10" width="90" height="90" mask="url(#I2)"/>
+</g>
+
+</svg>
