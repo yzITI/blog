@@ -13,6 +13,7 @@ cache:
     #- themes 主题没有更改时可以缓存
 # S: Build Lifecycle
 before_install:
+  - npm install -g hexo
   - npm install -g hexo-cli # 安装 hexo
 
 install:
