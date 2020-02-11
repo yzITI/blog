@@ -14,7 +14,6 @@ cache:
 # S: Build Lifecycle
 before_install:
   - npm install -g hexo
-  - npm install -g hexo-cli # 安装 hexo
 
 install:
   - npm install # 安装 package.json 中的插件
