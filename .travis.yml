@@ -13,7 +13,7 @@ cache:
     #- themes 主题没有更改时可以缓存
 # S: Build Lifecycle
 before_install:
-  - npm install -g hexo
+  - npm install hexo
 
 install:
   - npm install # 安装 package.json 中的插件
