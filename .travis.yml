@@ -1,0 +1,29 @@
+language: node_js
+node_js: stable
+
+# assign build branches
+branches:
+  only:
+    - master
+
+# cache this directory
+cache:
+  directories:
+    - node_modules
+    #- themes 主题没有更改时可以缓存
+# S: Build Lifecycle
+before_install:
+  - npm install -g hexo-cli # 安装 hexo
+
+install:
+  - npm install # 安装 package.json 中的插件
+
+script:
+  - hexo generate
+
+after_success:
+  - git config --global user.name "zhuqinggang"
+  - git config --global user.email "zhuqinggangemail@qq.com"
+  - sed -i "s/coding_token/${CODING_TOKEN}/g" _config.yml #使用travisCI中配置的token替换掉_config.yml中对应的占位符
+  - hexo deploy
+# E: Build LifeCycle

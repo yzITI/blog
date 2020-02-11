@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://localhost:4000/
+url: http://blog.yzzx.tech/
 root: /
 permalink: :id/
 permalink_defaults:
@@ -99,6 +99,6 @@ theme: icarus
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://e.coding.net/cmdblock/Pages/ITI-Blog.git
+  repo: https://coding_token@e.coding.net/cmdblock/Pages/ITI-Blog.git
   branch: master
   message: update

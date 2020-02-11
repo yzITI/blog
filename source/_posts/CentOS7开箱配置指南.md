@@ -9,9 +9,13 @@ tags:
 - 服务器
 toc: true
 ---
+
+本文记录了一些简明的CentOS7使用方法
+<!-- more -->
+
 # SELINUX
 > selinux 存在的意义似乎只是提醒我们把它关掉……
-<!-- more -->
+
 关闭方法：修改`/etc/selinux/config`
 其中的 enforcing 改为  disabled
 
