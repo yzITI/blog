@@ -82,13 +82,13 @@ $ sudo apt install git-all
 $ git --version
 ```
 
-如果没有安装，应该会弹出安装请求，也可以去https://git-scm.com/download/mac下载。
+如果没有安装，应该会弹出安装请求，也可以去https://git-scm.com/download/mac 下载。
 
 
 
 **Windows**
 
-这个稍微有点烦，见https://git-scm.com/book/en/v2/Getting-Started-Installing-Git。
+这个稍微有点烦，见https://git-scm.com/book/en/v2/Getting-Started-Installing-Git 。
 
 
 
@@ -379,7 +379,7 @@ Git大致就讲这么多啦，想更了解具体的Git，阔以参考document。
 
 ## 注册及安装
 
-想注册的话你需要准备的东西有：一个或多个邮箱。一个账号可以绑定N个邮箱，然后去https://github.com/进行注册。如果是学生且想免费申请Github pro可以访问https://education.github.com/pack。
+想注册的话你需要准备的东西有：一个或多个邮箱。一个账号可以绑定N个邮箱，然后去https://github.com/ 进行注册。如果是学生且想免费申请Github pro可以访问https://education.github.com/pack 。
 
 申请完之后我们打开命令行
 
