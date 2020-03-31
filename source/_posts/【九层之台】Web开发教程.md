@@ -1003,6 +1003,168 @@ Vuejs其实还支持组件化，所以成为**渐进式的框架**，你可以�
 
 下面让我们看一看，Vuejs是如何使用的。
 
+## Hello Vue!
+
+现在我们又要拿出sublime啦！打开之前玩耍过的`index.html`所在的文件夹，在HTML文件中写入如下内容（完整代码哦）：
+```html
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Hello Vue</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ message }}</h1>
+  </div>
+  <script type="text/javascript" src="./index.js"></script> 
+</body>
+</html>
+```
+接下来打开`index.js`并写入如下内容：
+```js
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+```
+接下来使用浏览器打开`index.html`，就会发现，页面上并没有显示两个大括号，而是显示出了`Hello Vue`！这是为什么呢？让我们来学习一下上面代码的工作原理吧：
+- HTML代码第5行：引入Vuejs库。加载JS库通常被放在`head`元素中。在通常的网页上，我们往往使用公共CDN引入想要的JS库（这里使用了jsdelivr）。公共CDN就是给大家免费提供库的快速加载的网络服务。
+- HTML代码倒数第3行：引入我们自己写的脚本文件。通常自己的JS代码在`body`元素的最后引入，这是为了等待页面元素加载完全，让JS能够正常工作。
+- `<div id="app">`：在这里我们定义了一个具有属性`id="app"`的块元素，这也是Vuejs应用常用的写法。
+- JS代码第1行：新建Vue对象。因为引入了Vuejs库，我们可以新建一个Vue对象。变量名通常叫`app`，下面的内容都是新建的Vue对象的内部变量等。
+- JS代码第2行：在Vue对象内部，通过指定`el`变量的值，我们可以控制当前Vue对象绑定的HTML元素。`el`变量的值是一个字符串，与CSS选择器语法相同。
+- JS代码第3-5行：在Vue对象内部，指定`data`变量的值（是一个对象），就可以让这个子对象中的所有值被Vuejs框架自动追踪和更新。
+- HTML代码中的`{{ message }}`：两个大括号被称为Mustache语法，被两个大括号包含的文本会被Vue对象解析为代码。所以这里就是显示了Vue对象中`data`对象的`message`变量的值。
+
+当HTML代码的元素加载完成以后，浏览器开始加载我们自己写的JS代码`index.js`，这个时候创建的Vue对象会自动接管属性`id="app"`的块元素和它内部的所有内容。这些内容将会经过Vuejs框架的处理，由Vuejs动态渲染。这部分原理非常复杂不在本篇教程的介绍范围内，有兴趣的读者可以自行学习。
+
+> 在Vuejs接管的块元素外部写任何Mustache或者Vuejs相关的语法都是无效的。
+
+初步见识到了Vuejs的作用原理以后，我们进一步了解一些Vuejs的使用方法。
+
+## Vue对象
+
+首先我们先来了解一下Vue对象的内部写法。
+
+上一节中我们已经讲过了`el`变量：Vue对象绑定的HTML元素。
+
+### data
+
+`data`变量的值应当是一个对象，包含了需要在Vuejs框架中渲染的变量。注意，如果`data`变量中包含数组，数组元素不会被Vuejs自动追踪和更新，需要使用`this.$set()`函数，或者在改变以后使用`this.$forceUpdate()`强制重新渲染。
+
+### methods
+
+`methods`变量的值应当是一个对象，对象内部的每一个变量的值都必须是一个函数。所有需要在Vuejs框架内实现的交互，或者需要访问Vue对象内部的函数过程都必须写在`methods`对象内部。在`methods`函数内部，可以用`this`直接访问当前Vue对象的其他函数或者`data`中的数据（不需要再添加`methods`或者`data`）。例如，在某个函数中可以用`this.message`直接访问上一节中`data`对象中的`message`变量。
+
+### computed
+
+`computed`与`methods`类似，应当包含函数。在Vuejs框架中，计算属性`computed`是指一组自动更新的变量，这些变量可能与其他变量有一定的依赖关系（通过一个函数计算出来）。计算属性保证，当Vue对象中的变量有更新的时候，依赖被更新变量的计算属性值也会被更新。
+
+例如：
+```js
+data: {
+  a: 1,
+  b: 2
+},
+computed: {
+  sum: function() {
+    return this.a + this.b;
+  }
+}
+```
+无论变量`a`和`b`如何变化，计算属性`sum`始终会保持为它们的和。
+
+### 其他
+
+其他一些内容包括监视属性`watch`，可以在变量发生变化的时候触发特殊函数。还有生命周期函数。
+
+生命周期函数是指，在Vue对象从创建到最终被浏览器销毁的各个阶段，你可以自己定义执行一些函数过程。
+
+例如，在Vue对象被创建的时候，你可以执行一部分初始化操作：
+```js
+created: function() {
+  console.log("Vue object is created!");
+}
+```
+
+具体的生命周期文档详见[官网上的章节](https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram)。
+
+## 属性绑定
+
+除了最开始介绍的Mustache语法直接控制网页显示的内容，Vuejs框架还通过在HTML代码中加入特殊的属性，来协助控制网页的内容和渲染。
+
+### 控制属性
+
+Vuejs框架可以通过控制属性来控制HTML元素的渲染情况。
+- `v-if`属性：控制当前HTML元素是否渲染。
+- `v-else`属性：没有属性值，与`v-if`连用。
+- `v-show`属性：控制当前HTML元素是否显示。
+- `v-for`属性：循环渲染。
+
+这些属性的值均为字符串，会被Vuejs框架解析为代码。
+
+> `v-if`和`v-show`的区别：如果HTML元素不渲染，DOM上直接没有这个元素。如果HTML元素不显示，只是它被设置了CSS属性`display: none;`而已，它还可以具有其它功能。
+
+例如HTML中写（放在`id="app"`的块元素里面）：
+```html
+<div v-if="choice == 'A'">A</div>
+<div v-else>others</div>
+```
+在JS中的`data`对象中的变量`choice`的值，就会直接影响网页上这两个元素的渲染情况。
+
+再例如，`data`对象中具有变量`list: ["A", "B", "C", "D", "E"]`，则下列代码会自动循环渲染出这个数组的所有项。
+```html
+<div v-for="l in list">{{ l }}</div>
+```
+就好像循环一样，生成了循环变量`l`，指代的是列表中的每一项。（注意，虽然用的是`in`，但是指代的是数组中的值，不是下标）
+
+尝试一下吧！
+
+### 属性值绑定
+
+有时候我们还需要控制元素的属性，比如动态改变元素的CSS（控制`style`属性），或者直接增加CSS类名（控制`class`属性），这个时候我们可以使用属性修饰符`v-bind`。
+
+例如：
+```html
+<div v-bind:style="exStyle">Example</div>
+```
+在原有属性之前添加修饰符和冒号，就可以让引号内的内容被解析为代码（一个变量的值）。修改`exStyle`的值就可以动态更新`style`属性的值。
+
+同时，因为属性值绑定使用非常多，我们可以省略`v-bind`，只留一个冒号：`<div :style="exStyle">Example</div>`。
+
+> `style`和`class`属性值绑定还有更多用法，请参考官网教程。
+
+### 双向绑定
+
+如果需要操作的元素是一个输入框`input`或者`textarea`，则可以使用双向绑定`v-model`：
+```html
+<input type="text" :placeholder="tip" v-model="content">
+```
+在这个代码中，首先绑定了属性`placeholder`的值到变量`tip`上，这个绑定是单向的，改变变量`tip`的值可以改变属性`placeholder`。接下来双向绑定了输入内容到变量`content`上，如果改变变量`content`的值，输入框的内容会更新；如果用户改变了输入框的内容，变量`content`也会更新。
+
+## 事件处理
+
+为了实现用户对网页的操作，Vuejs框架提供了事件属性，使用属性修饰符`v-on`来控制。
+
+例如：
+```html
+<div v-on:click="handle">Click me!</div>
+```
+绑定的字符串被解析为代码，这里`handle`是一个Vue对象中的函数。用户点击这个块元素的时候，Vuejs框架会自动运行`handle`函数。
+
+Vuejs几乎涵盖了可能用到的所有事件，具体列表详见官网。还有更多事件后缀修饰符，这里都不做详细叙述了，官网上讲的非常清楚。
+
+## 写在后面
+
+Vuejs框架有很多很多的东西要学，如果有时间建议仔细把官方文档过一遍，了解一下它的作用原理什么的。很多细节上的东西本篇教程限于篇幅也写不完，也不需要写完（毕竟官网都有）。学到这个时候，相信各位已经具有了一定的自我学习的能力，可以尝试自己去寻找参考文档并学习它的使用方法。
+
+Vuejs框架最重要的“渐进式”，我们留到下一章再讲。建议大家稍微阅读一下官方网站上关于“组件”的章节，对组件化有一个简单的了解。
+
+在这个真正日新月异的时代，开发领域主要还得靠自己去看浩如星辰的官方文档。
+
 # 6. VueCli
 
 # 7. 网络
