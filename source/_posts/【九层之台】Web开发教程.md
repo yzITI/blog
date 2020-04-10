@@ -1581,6 +1581,7 @@ Vuetify的功能极其强大，基本上用得到的Material Design的设计（�
 - [undraw](https://undraw.co/)：海量的矢量图。SVG矢量图在网页上可以大幅度减少网页的加载量，提高网页应用的访问速度
 - [WeaveSilk](http://weavesilk.com/)：一个AI辅助画图工具，暗色系的设计可能可以用到。~~也挺好玩的~~
 - [Adobe 调色板](https://color.adobe.com/)：自己配色（强烈不推荐）的时候可能会用到
+- [FontSpider](http://font-spider.org/)：压缩中文字体包用的
 
 > 从明天起  
 > 细心观察每一个网页  
